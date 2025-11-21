@@ -1,0 +1,2 @@
+# AndroidByteDanceRednoteDemo
+AndroidProject
