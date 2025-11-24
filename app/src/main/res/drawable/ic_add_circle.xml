@@ -1,9 +1,21 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-  android:width="24dp"
-  android:height="24dp"
+  android:width="36dp"
+  android:height="36dp"
   android:viewportWidth="24"
   android:viewportHeight="24">
+
+  <!-- 红色背景圆 -->
   <path
-    android:fillColor="#FFFFFF"
-    android:pathData="M12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zm-2,15l-5,-5 1.41,-1.41L10,14.17l7.59,-7.59L19,8l-9,9z" />
+    android:pathData="M12,2a10,10 0,0,1 10,10a10,10 0,0,1 -10,10a10,10 0,0,1 -10,-10a10,10 0,0,1 10,-10z"
+    android:fillColor="#FF0000" />
+
+  <!-- 垂直条：x=11 到 x=13，y=7 到 y=17 -->
+  <path
+    android:pathData="M11,7 L13,7 L13,17 L11,17 Z"
+    android:fillColor="#FFFFFF" />
+
+  <!-- 水平条：x=7 到 x=17，y=11 到 y=13 -->
+  <path
+    android:pathData="M7,11 L17,11 L17,13 L7,13 Z"
+    android:fillColor="#FFFFFF" />
 </vector>

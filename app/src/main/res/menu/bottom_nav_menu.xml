@@ -2,18 +2,23 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
     android:id="@+id/nav_home"
-    android:title="首页" />
+    android:title="首页"
+    app:showAsAction="always"/>
   <item
     android:id="@+id/nav_market"
-    android:title="市集" />
+    android:title="市集"
+    app:showAsAction="always"/>
   <item
     android:id="@+id/nav_add"
     android:icon="@drawable/ic_add_circle"
-    android:title="+" />
+    android:title=""
+    app:showAsAction="always"/>
   <item
     android:id="@+id/nav_message"
-    android:title="消息" />
+    android:title="消息"
+    app:showAsAction="always"/>
   <item
     android:id="@+id/nav_me"
-    android:title="我" />
+    android:title="我"
+    app:showAsAction="always"/>
 </menu>

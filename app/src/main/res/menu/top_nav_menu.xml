@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+    android:id="@+id/nav_follow"
+    android:title="关注"
+    android:checked="true"
+    app:showAsAction="never" />
+  <item
+    android:id="@+id/nav_discover"
+    android:title="发现"
+    android:checked="true"
+    app:showAsAction="never" />
+  <item
+    android:id="@+id/nav_location"
+    android:title="广州"
+    app:showAsAction="never" />
+  <item
+    android:id="@+id/nav_search"
+    android:icon="@drawable/ic_search"
+    android:title="搜索"
+    app:showAsAction="always" />
 </menu>
