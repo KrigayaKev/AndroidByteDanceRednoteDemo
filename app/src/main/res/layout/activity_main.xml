@@ -5,31 +5,12 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <!-- 顶部导航栏：TabLayout -->
-  <com.google.android.material.tabs.TabLayout
-    android:id="@+id/tabLayout"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:tabIndicatorColor="@android:color/white"
-    app:tabIndicatorHeight="4dp"
-    app:tabTextColor="@android:color/white"
-    app:tabSelectedTextColor="@android:color/white"
-    app:tabMode="fixed"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent" />
-
-  <!-- 内容区：RecyclerView（瀑布流） -->
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerView"
+  <!-- 内容区：ViewPager2 承载 Fragment -->
+  <androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/viewPager"
     android:layout_width="0dp"
     android:layout_height="0dp"
-    android:padding="8dp"
-    android:clipToPadding="false"
-    android:scrollbars="none"
-    app:layout_constraintTop_toBottomOf="@id/tabLayout"
+    app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toTopOf="@id/bottomBar"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent" />
