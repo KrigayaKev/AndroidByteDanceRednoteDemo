@@ -2,7 +2,6 @@ package com.example.rednotedemo.presentation.view;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.rednotedemo.R;
 import com.example.rednotedemo.presentation.view.adapter.MainPagerAdapter;

@@ -3,7 +3,11 @@ package com.example.rednotedemo.presentation.view.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.paging.PagingDataAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -11,22 +15,23 @@ import com.example.rednotedemo.R;
 import com.example.rednotedemo.entity.vo.PostListItemVO;
 import com.example.rednotedemo.presentation.view.viewholder.PostViewHolder;
 
-import java.util.ArrayList;
-import java.util.List;
+public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewHolder> {
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+  public static final DiffUtil.ItemCallback<PostListItemVO> DIFF_CALLBACK =
+     new DiffUtil.ItemCallback<>() {
+       @Override
+       public boolean areItemsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
+         return oldItem.getPostId() == newItem.getPostId();
+       }
 
-public class PostListAdapter extends RecyclerView.Adapter<PostViewHolder> {
-
-  private List<PostListItemVO> dataList = new ArrayList<>();
+       @Override
+       public boolean areContentsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
+         return oldItem.equals(newItem);
+       }
+     };
 
   public PostListAdapter() {
-    // 推荐使用无参构造，通过 setData 更新数据
-  }
-  
-  public PostListAdapter(List<PostListItemVO> dataList) {
-    this.dataList = dataList;
+    super(DIFF_CALLBACK);
   }
 
   @NonNull
@@ -39,49 +44,44 @@ public class PostListAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
   @Override
   public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-    if (position >= dataList.size()) return; // 防止越界
+    PostListItemVO item = getItem(position);
+    if (item == null) return;
 
-    PostListItemVO item = dataList.get(position);
+    // 1. 封面图（Cover Image）
+    String coverUrl = item.getCoverUrl();
+//    if (coverUrl != null && !coverUrl.isEmpty()) {
+//      Glide.with(holder.getImageView().getContext())
+//         .load(coverUrl)
+//         .placeholder(R.color.placeholder_gray) // 默认灰色占位
+//         .into(holder.getImageView());
+//    } else {
+//      // 如果 coverUrl 为 null 或空，使用本地资源
+//      holder.getImageView().setImageResource(R.drawable.rednotelogo); // 👈 使用你的 logo
+//    }
+    holder.getImageView().setImageResource(R.drawable.rednotelogo);
 
-    // 1. 封面图
-    Glide.with(holder.getImageView().getContext())
-       .load(item.getCoverUrl())
-       .placeholder(R.color.placeholder_gray)
-       .into(holder.getImageView());
 
-    // 2. 标题/正文
+
+    // 2. 标题
     holder.getTextContent().setText(item.getTitle());
 
-    // 3. 头像（圆形）
-    Glide.with(holder.getAvatar().getContext())
-       .load(item.getAuthorAvatarUrl())
-       .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-       .placeholder(R.drawable.ic_default_avatar)
-       .into(holder.getAvatar());
+    // 3. 头像（Avatar）
+    String avatarUrl = item.getAuthorAvatarUrl();
+    if (avatarUrl != null && !avatarUrl.isEmpty()) {
+      Glide.with(holder.getAvatar().getContext())
+         .load(avatarUrl)
+         .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+         .placeholder(R.drawable.ic_default_avatar)
+         .into(holder.getAvatar());
+    } else {
+      // 如果 avatarUrl 为 null 或空，使用本地 QQ 头像
+      holder.getAvatar().setImageResource(R.drawable.qq_avatar); // 👈 使用你的 QQ 头像
+    }
 
     // 4. 昵称
     holder.getTextAuthor().setText(item.getAuthorName());
 
     // 5. 点赞数
     holder.getTextLikes().setText(String.valueOf(item.getLikesCount()));
-  }
-
-  @Override
-  public int getItemCount() {
-    return dataList != null ? dataList.size() : 0;
-  }
-
-  // ✅ 新增：安全更新数据的方法（用于下拉刷新、分页加载等）
-  public void updateData(@NonNull List<PostListItemVO> newData) {
-    this.dataList.clear();
-    this.dataList.addAll(newData);
-    notifyDataSetChanged();
-  }
-
-  // 可选：增量更新（用于局部刷新）
-  public void appendData(@NonNull List<PostListItemVO> newData) {
-    int start = this.dataList.size();
-    this.dataList.addAll(newData);
-    notifyItemRangeInserted(start, newData.size());
   }
 }

@@ -1,5 +1,9 @@
 package com.example.rednotedemo.entity.vo;
 
+import com.example.rednotedemo.enums.FilterType;
+
+import java.util.Objects;
+
 public class PostListItemVO {
 
   private int postId;
@@ -8,6 +12,7 @@ public class PostListItemVO {
   private String authorName;        // 作者昵称
   private String title;             // 标题，必有
   private int likesCount;           // 点赞数
+  private FilterType type; // 新增筛选类型
 
   // 构造方法
   public PostListItemVO() {}
@@ -42,6 +47,11 @@ public class PostListItemVO {
     this.likesCount = likesCount;
     return this;
   }
+  
+  public PostListItemVO setType(FilterType type) {
+    this.type = type;
+    return this;
+  }
 
   // Getters（保持不变）
   public int getPostId() { return postId; }
@@ -50,4 +60,17 @@ public class PostListItemVO {
   public String getAuthorName() { return authorName; }
   public String getTitle() { return title; }
   public int getLikesCount() { return likesCount; }
+  public FilterType getType() { return type; }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) return false;
+    PostListItemVO that = (PostListItemVO) o;
+    return postId == that.postId && likesCount == that.likesCount && Objects.equals(coverUrl, that.coverUrl) && Objects.equals(authorAvatarUrl, that.authorAvatarUrl) && Objects.equals(authorName, that.authorName) && Objects.equals(title, that.title) && type == that.type;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(postId, coverUrl, authorAvatarUrl, authorName, title, likesCount, type);
+  }
 }
