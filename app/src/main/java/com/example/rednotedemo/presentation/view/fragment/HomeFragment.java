@@ -6,26 +6,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.paging.PagingData;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.rednotedemo.R;
 import com.example.rednotedemo.enums.FilterType;
-import com.example.rednotedemo.entity.vo.PostListItemVO;
 import com.example.rednotedemo.presentation.view.adapter.PostListAdapter;
 import com.example.rednotedemo.presentation.viewmodel.HomeViewModel;
-import com.example.rednotedemo.util.FlowCollectorKt;
 import com.google.android.material.tabs.TabLayout;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import kotlin.Unit;
 
 public class HomeFragment extends Fragment {
@@ -35,6 +33,7 @@ public class HomeFragment extends Fragment {
   private SwipeRefreshLayout swipeRefreshLayout;
   private TabLayout tabLayout;
   private HomeViewModel viewModel;
+  private CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,28 +49,32 @@ public class HomeFragment extends Fragment {
 
     recyclerView = view.findViewById(R.id.recyclerView);
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-
-    adapter = new PostListAdapter();
+    adapter = new PostListAdapter(new PostListAdapter.MyComparator(), getContext());
     recyclerView.setAdapter(adapter);
 
+    viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
-    // 初始化 ViewModel（固定使用 DISCOVER）
-    viewModel = new ViewModelProvider(this, new ViewModelProvider.Factory() {
-      @NonNull
-      @Override
-      public <T extends androidx.lifecycle.ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new HomeViewModel(FilterType.DISCOVER);
-      }
-    }).get(HomeViewModel.class);
-    
+
+    compositeDisposable.add(
+          viewModel.getPagingData(FilterType.DISCOVER)
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(pagingData -> {
+                      adapter.submitData(getLifecycle(), pagingData);
+                  }, throwable -> {
+                      Log.e("HomeFragment", "加载失败", throwable);
+                      // 可选：显示错误提示
+                  })
+    );
+
+
 
     // 下拉刷新
     swipeRefreshLayout.setOnRefreshListener(() -> {
       adapter.refresh();
+      swipeRefreshLayout.setRefreshing(false);
     });
-    // 首次加载数据
-    collectFlow(viewModel.getPosts());
-    
+
 
     tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override public void onTabSelected(TabLayout.Tab tab) {}
@@ -82,18 +85,6 @@ public class HomeFragment extends Fragment {
     return view;
   }
 
-  private void collectFlow(kotlinx.coroutines.flow.Flow<PagingData<PostListItemVO>> flow) {
-    FlowCollectorKt.collectPagingData(
-       getViewLifecycleOwner(),
-       flow,
-       pagingData -> {
-         Log.d("HomeFragment", "collectFlow: " + pagingData);
-         adapter.submitData(getLifecycle(), pagingData);
-         swipeRefreshLayout.setRefreshing(false);
-         return Unit.INSTANCE;
-       }
-    );
-  }
-  
-  
+
+
 }

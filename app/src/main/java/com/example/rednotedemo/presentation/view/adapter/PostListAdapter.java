@@ -1,5 +1,6 @@
 package com.example.rednotedemo.presentation.view.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +18,25 @@ import com.example.rednotedemo.presentation.view.viewholder.PostViewHolder;
 
 public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewHolder> {
 
-  public static final DiffUtil.ItemCallback<PostListItemVO> DIFF_CALLBACK =
-     new DiffUtil.ItemCallback<>() {
-       @Override
-       public boolean areItemsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
-         return oldItem.getPostId() == newItem.getPostId();
-       }
+    private Context context;
 
-       @Override
-       public boolean areContentsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
-         return oldItem.equals(newItem);
-       }
-     };
+    public PostListAdapter(MyComparator myComparator, Context mContext){
+        super(myComparator);
+        this.context = mContext;
+    }
 
-  public PostListAdapter() {
-    super(DIFF_CALLBACK);
-  }
+    public static class MyComparator extends DiffUtil.ItemCallback<PostListItemVO> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
+            return oldItem.getPostId() == newItem.getPostId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
+            return oldItem.equals(newItem);
+        }
+    }
 
   @NonNull
   @Override

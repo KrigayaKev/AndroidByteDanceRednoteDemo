@@ -51,8 +51,13 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.annotation:annotation:1.7.0")
-    // Paging 3
-    implementation("androidx.paging:paging-runtime-ktx:3.3.0")
+    // Paging3 核心
+    implementation("androidx.paging:paging-runtime:3.0.1")
+    // Paging3 + RxJava2 支持
+    implementation("androidx.paging:paging-rxjava2:3.0.1")
+    // RxJava 相关
+    implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
+    implementation("io.reactivex.rxjava2:rxjava:2.2.9")
     // 协程（用于 Flow → LiveData 转换）
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     // ViewModel + LiveData
