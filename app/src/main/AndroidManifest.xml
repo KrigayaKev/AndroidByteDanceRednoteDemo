@@ -15,6 +15,9 @@
       android:name=".presentation.view.MainActivity"
       android:exported="false" />
     <activity
+      android:name=".presentation.view.PublishActivity"
+      android:exported="false" />
+    <activity
       android:name=".presentation.view.SplashActivity"
       android:exported="true"
       android:theme="@style/SplashScreen">

@@ -4,7 +4,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical">
 
-  <!-- 新增：TabLayout -->
+  <!-- TabLayout -->
   <com.google.android.material.tabs.TabLayout
     android:id="@+id/tabLayout"
     android:layout_width="match_parent"
@@ -14,6 +14,7 @@
     app:tabSelectedTextColor="#FF0000"
     app:tabTextColor="#333333" />
 
+  <!-- 列表 -->
   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
@@ -27,5 +28,5 @@
       android:clipToPadding="false" />
 
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+  
 </LinearLayout>

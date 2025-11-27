@@ -14,9 +14,13 @@ public class PostRepository {
 
     // 模拟获取分页数据
     public List<PostListItemVO> getNeedPagingList(FilterType type, int loadSize, int offset) {
-        List<PostListItemVO> items = new ArrayList<>();
+      // 模拟 50% 概率失败
+      if (random.nextDouble() < 0.5) {
+        throw new RuntimeException("网络连接失败，请检查您的网络");
+      }  
+      List<PostListItemVO> items = new ArrayList<>();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

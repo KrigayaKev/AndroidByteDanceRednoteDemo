@@ -1,6 +1,7 @@
 package com.example.rednotedemo.entity;
 
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -21,21 +22,29 @@ public class Post {
   @PrimaryKey(autoGenerate = true)
   private int id;
 
+  @ColumnInfo(name = "user_id")
   private int userId;
 
-  private String title;         // NOT NULL
+  @ColumnInfo(name = "title")
+  private String title;
 
-  private String content;       // 可为 null
+  @ColumnInfo(name = "content")
+  private String content;
 
-  private String videoUrl;      // 可为 null
+  @ColumnInfo(name = "video_url")
+  private String videoUrl;
 
-  private boolean isVideo;      // 默认 false
+  @ColumnInfo(name = "is_video")
+  private boolean isVideo;
 
-  private String coverUrl;      // NOT NULL
+  @ColumnInfo(name = "cover_url")
+  private String coverUrl;
 
-  private long createTime;      // 时间戳（毫秒）
+  @ColumnInfo(name = "create_time")
+  private long createTime;
 
-  private long updateTime;      // 时间戳（毫秒）
+  @ColumnInfo(name = "update_time")
+  private long updateTime;
 
   // 构造方法
   public Post() {}

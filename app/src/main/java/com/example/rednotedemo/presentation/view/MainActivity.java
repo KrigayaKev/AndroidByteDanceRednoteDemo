@@ -1,5 +1,6 @@
 package com.example.rednotedemo.presentation.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -66,12 +67,17 @@ public class MainActivity extends AppCompatActivity {
         if(position == currentIndex) {
           return;
         }
-        updateTabSelection(position);
         if (position == 0) {
           // 首页：切换到第 0 页
           viewPager.setCurrentItem(0, false);
+          updateTabSelection(position);
+        } else if(position == 2){
+          //跳转到发布页
+          Intent intent = new Intent(MainActivity.this, PublishActivity.class);
+          startActivity(intent);
         } else {
           // 其他：切换到第 1 页（占位页）
+          updateTabSelection(position);
           viewPager.setCurrentItem(1, false);
           // 可选：弹出 Toast（避免用户疑惑）
           // Toast.makeText(MainActivity.this, "该功能暂未实现", Toast.LENGTH_SHORT).show();

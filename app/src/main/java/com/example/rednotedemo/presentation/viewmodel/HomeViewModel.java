@@ -37,10 +37,10 @@ public class HomeViewModel extends ViewModel {
 
         Pager<Integer, PostListItemVO> pager = new Pager<>(
                 new PagingConfig(
-                        60,        // pageSize
+                        10,        // pageSize
                         10,        // prefetchDistance
                         true,      // enablePlaceholders
-                        60         // initialLoadSize
+                        10         // initialLoadSize
                 ),
                 () -> new PostPagingSource(type, postRepository)
         );
