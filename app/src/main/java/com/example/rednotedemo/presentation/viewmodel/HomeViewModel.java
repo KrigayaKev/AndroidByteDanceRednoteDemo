@@ -1,13 +1,10 @@
 package com.example.rednotedemo.presentation.viewmodel;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import com.example.rednotedemo.data.paging.PostPagingSource;
 import com.example.rednotedemo.data.repository.PostRepository;
 import com.example.rednotedemo.entity.vo.PostListItemVO;
-import com.example.rednotedemo.enums.FilterType;
-import com.example.rednotedemo.util.Resource;
+import com.example.rednotedemo.common.enums.FilterType;
+import com.example.rednotedemo.common.util.Resource;
 
 import java.util.List;
 

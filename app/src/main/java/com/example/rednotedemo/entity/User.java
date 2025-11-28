@@ -29,8 +29,6 @@ public class User {
   public User(String username, String avatarUrl) {
     this.username = username;
     this.avatarUrl = avatarUrl;
-    this.createTime = System.currentTimeMillis();
-    this.updateTime = this.createTime;
   }
 
   // Getters and Setters...
@@ -39,53 +37,47 @@ public class User {
     return id;
   }
 
-  public User setId(int id) {
+  public void setId(int id) {
     this.id = id;
-    return this;
   }
 
   public String getUsername() {
     return username;
   }
 
-  public User setUsername(String username) {
+  public void setUsername(String username) {
     this.username = username;
-    return this;
   }
 
   public String getAvatarUrl() {
     return avatarUrl;
   }
 
-  public User setAvatarUrl(String avatarUrl) {
+  public void setAvatarUrl(String avatarUrl) {
     this.avatarUrl = avatarUrl;
-    return this;
   }
 
   public String getPhone() {
     return phone;
   }
 
-  public User setPhone(String phone) {
+  public void setPhone(String phone) {
     this.phone = phone;
-    return this;
   }
 
   public long getCreateTime() {
     return createTime;
   }
 
-  public User setCreateTime(long createTime) {
+  public void setCreateTime(long createTime) {
     this.createTime = createTime;
-    return this;
   }
 
   public long getUpdateTime() {
     return updateTime;
   }
 
-  public User setUpdateTime(long updateTime) {
+  public void setUpdateTime(long updateTime) {
     this.updateTime = updateTime;
-    return this;
   }
 }

@@ -1,6 +1,6 @@
 package com.example.rednotedemo.entity.vo;
 
-import com.example.rednotedemo.enums.FilterType;
+import com.example.rednotedemo.common.enums.FilterType;
 
 import java.util.Objects;
 

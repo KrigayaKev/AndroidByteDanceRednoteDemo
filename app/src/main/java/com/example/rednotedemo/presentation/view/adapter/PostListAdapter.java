@@ -53,16 +53,15 @@ public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewH
 
     // 1. 封面图（Cover Image）
     String coverUrl = item.getCoverUrl();
-//    if (coverUrl != null && !coverUrl.isEmpty()) {
-//      Glide.with(holder.getImageView().getContext())
-//         .load(coverUrl)
-//         .placeholder(R.color.placeholder_gray) // 默认灰色占位
-//         .into(holder.getImageView());
-//    } else {
-//      // 如果 coverUrl 为 null 或空，使用本地资源
-//      holder.getImageView().setImageResource(R.drawable.rednotelogo); // 👈 使用你的 logo
-//    }
-    holder.getImageView().setImageResource(R.drawable.rednotelogo);
+    if (coverUrl != null && !coverUrl.isEmpty()) {
+      Glide.with(holder.getImageView().getContext())
+         .load(coverUrl)
+         .placeholder(R.color.placeholder_gray) // 默认灰色占位
+         .into(holder.getImageView());
+    } else {
+      // 如果 coverUrl 为 null 或空，使用本地资源
+      holder.getImageView().setImageResource(R.drawable.rednotelogo); // 👈 使用你的 logo
+    }
 
 
 
@@ -73,12 +72,11 @@ public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewH
     String avatarUrl = item.getAuthorAvatarUrl();
     if (avatarUrl != null && !avatarUrl.isEmpty()) {
       Glide.with(holder.getAvatar().getContext())
-         .load(avatarUrl)
+         .load("file:///android_asset/img/avatar7.png")
          .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-         .placeholder(R.drawable.ic_default_avatar)
          .into(holder.getAvatar());
     } else {
-      // 如果 avatarUrl 为 null 或空，使用本地 QQ 头像
+//      // 如果 avatarUrl 为 null 或空，使用本地 QQ 头像
       holder.getAvatar().setImageResource(R.drawable.qq_avatar); // 👈 使用你的 QQ 头像
     }
 

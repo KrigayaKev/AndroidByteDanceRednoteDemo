@@ -1,4 +1,4 @@
-package com.example.rednotedemo.enums;
+package com.example.rednotedemo.common.enums;
 
 /**
  * 标题     :

@@ -15,11 +15,10 @@ import androidx.paging.CombinedLoadStates;
 import androidx.paging.LoadState;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.rednotedemo.R;
-import com.example.rednotedemo.enums.FilterType;
+import com.example.rednotedemo.common.enums.FilterType;
 import com.example.rednotedemo.presentation.view.adapter.PagingLoadStateAdapter;
 import com.example.rednotedemo.presentation.view.adapter.PostListAdapter;
 import com.example.rednotedemo.presentation.view.layout.SafeStaggeredGridLayoutManager;

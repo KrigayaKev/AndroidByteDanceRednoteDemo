@@ -49,6 +49,16 @@ public class Post {
   // 构造方法
   public Post() {}
 
+  public Post(int id, int userId, String title, String content, String videoUrl, boolean isVideo, String coverUrl, long createTime, long updateTime) {
+    this.id = id;
+    this.userId = userId;
+    this.title = title;
+    this.content = content;
+    this.videoUrl = videoUrl;
+    this.isVideo = isVideo;
+    this.coverUrl = coverUrl;
+  }
+
   // Getters and Setters
   public int getId() { return id; }
   public void setId(int id) { this.id = id; }

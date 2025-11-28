@@ -6,9 +6,8 @@ import androidx.paging.PagingState;
 import androidx.paging.rxjava2.RxPagingSource;
 
 import com.example.rednotedemo.data.repository.PostRepository;
-import com.example.rednotedemo.entity.Post;
 import com.example.rednotedemo.entity.vo.PostListItemVO;
-import com.example.rednotedemo.enums.FilterType;
+import com.example.rednotedemo.common.enums.FilterType;
 
 import org.jetbrains.annotations.NotNull;
 

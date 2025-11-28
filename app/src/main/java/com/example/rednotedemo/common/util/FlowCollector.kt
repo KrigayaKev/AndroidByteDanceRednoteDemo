@@ -1,4 +1,4 @@
-package com.example.rednotedemo.util
+package com.example.rednotedemo.common.util
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope

@@ -42,44 +42,39 @@ public class PostImage {
     return id;
   }
 
-  public PostImage setId(int id) {
+  public void setId(int id) {
     this.id = id;
-    return this;
   }
 
   public int getPostId() {
     return postId;
   }
 
-  public PostImage setPostId(int postId) {
+  public void setPostId(int postId) {
     this.postId = postId;
-    return this;
   }
 
   public String getImageUrl() {
     return imageUrl;
   }
 
-  public PostImage setImageUrl(String imageUrl) {
+  public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
-    return this;
   }
 
   public int getSortOrder() {
     return sortOrder;
   }
 
-  public PostImage setSortOrder(int sortOrder) {
+  public void setSortOrder(int sortOrder) {
     this.sortOrder = sortOrder;
-    return this;
   }
 
   public long getCreateTime() {
     return createTime;
   }
 
-  public PostImage setCreateTime(long createTime) {
+  public void setCreateTime(long createTime) {
     this.createTime = createTime;
-    return this;
   }
 }
