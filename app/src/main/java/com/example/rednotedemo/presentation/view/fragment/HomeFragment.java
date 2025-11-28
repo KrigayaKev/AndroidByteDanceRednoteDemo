@@ -22,6 +22,7 @@ import com.example.rednotedemo.R;
 import com.example.rednotedemo.enums.FilterType;
 import com.example.rednotedemo.presentation.view.adapter.PagingLoadStateAdapter;
 import com.example.rednotedemo.presentation.view.adapter.PostListAdapter;
+import com.example.rednotedemo.presentation.view.layout.SafeStaggeredGridLayoutManager;
 import com.example.rednotedemo.presentation.viewmodel.HomeViewModel;
 import com.google.android.material.tabs.TabLayout;
 
@@ -69,11 +70,13 @@ public class HomeFragment extends Fragment {
           LoadState loadState = combinedLoadStates.getRefresh();
           if (loadState instanceof LoadState.NotLoading) {
             swipeRefreshLayout.setRefreshing(false);
+            recyclerView.setVisibility(View.VISIBLE);
           } else if (loadState instanceof LoadState.Loading) {
             swipeRefreshLayout.setRefreshing(true);
 
           } else if (loadState instanceof LoadState.Error) {
             swipeRefreshLayout.setRefreshing(false);
+            recyclerView.setVisibility(View.GONE);
             LoadState.Error error = (LoadState.Error) loadState;
             Toast.makeText(getContext(), "Error:" + error.getError().getMessage(), Toast.LENGTH_SHORT).show();
           }
@@ -92,29 +95,11 @@ public class HomeFragment extends Fragment {
     // 下拉刷新：调用 adapter.refresh() 即可触发重新加载第一页
     swipeRefreshLayout.setOnRefreshListener(() -> adapter.refresh());
   }
-  
-  @Override
-  public void onResume() {
-    super.onResume();
-    Log.d(TAG, "onResume: 恢复 HomeFragment-");
-  }
-  
-  @Override
-  public void onPause() {
-    super.onPause();
-    Log.d(TAG, "onPause: 暂停 HomeFragment");
-  }
-  
-  @Override
-  public void onStop() {
-    super.onStop();
-    Log.d(TAG, "onStop: 停止 HomeFragment");
-  }
 
   private void initViews(@NonNull View view) {
     Log.d(TAG, "initViews: 初始化 HomeFragment 中的 View");
     recyclerView = view.findViewById(R.id.recyclerView);
-    recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+    recyclerView.setLayoutManager(new SafeStaggeredGridLayoutManager(requireContext(),2, SafeStaggeredGridLayoutManager.VERTICAL));
 
     swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
 

@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public  class LoadViewHolder extends RecyclerView.ViewHolder {
   private PostListAdapter adapter;
   private TextView mErrorMsg;
-  private TextView mStatus;
   private Button mRetry;
   private ProgressBar progressBar;
 
@@ -27,7 +26,6 @@ public  class LoadViewHolder extends RecyclerView.ViewHolder {
     mErrorMsg = itemView.findViewById(R.id.errorMsg);
     mRetry = itemView.findViewById(R.id.retryButton);
     progressBar = itemView.findViewById(R.id.progressBar);
-    mStatus = itemView.findViewById(R.id.tv_stats);
   }
   /**
    * 功能描述 加载状态显示
@@ -40,8 +38,7 @@ public  class LoadViewHolder extends RecyclerView.ViewHolder {
     if (loadState instanceof LoadState.NotLoading) {
       if (loadState.getEndOfPaginationReached()) {
         progressBar.setVisibility(View.GONE);
-        mStatus.setVisibility(View.VISIBLE);
-        mStatus.setText("数据加载完毕");
+        Log.d("LoadViewHolder","加载动画组件bind加载完毕");
         mRetry.setVisibility(View.GONE);
         mErrorMsg.setVisibility(View.GONE);
       }
@@ -49,10 +46,12 @@ public  class LoadViewHolder extends RecyclerView.ViewHolder {
 
     if (loadState instanceof LoadState.Loading) {
       progressBar.setVisibility(View.VISIBLE);
+      Log.d("LoadViewHolder","加载动画组件bind加载中");
     } else {
       progressBar.setVisibility(View.GONE);
     }
     if (loadState instanceof LoadState.Error) {
+      Log.d("LoadViewHolder","加载动画组件bind加载错误");
       mErrorMsg.setVisibility(View.VISIBLE);
       mRetry.setVisibility(View.VISIBLE);
       mRetry.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +60,6 @@ public  class LoadViewHolder extends RecyclerView.ViewHolder {
           adapter.retry();
         }
       });
-      mStatus.setVisibility(View.GONE);
       LoadState.Error loadStateError = (LoadState.Error) loadState;
       mErrorMsg.setText(loadStateError.getError().getLocalizedMessage());
     } else {
