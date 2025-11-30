@@ -2,6 +2,7 @@ package com.example.rednotedemo.data.dao;
 
 import com.example.rednotedemo.entity.PostImage;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -19,4 +20,7 @@ public interface PostImageDao {
 
   @Query("SELECT * FROM post_image WHERE post_id = :postId ORDER BY sort_order")
   List<PostImage> getImagesByPostId(int postId);
+
+  @Query("SELECT * FROM post_image WHERE post_id = :postId ORDER BY sort_order")
+  LiveData<List<PostImage>> getImagesByPostIdLiveData(int postId);
 }

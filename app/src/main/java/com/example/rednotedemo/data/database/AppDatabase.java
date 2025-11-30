@@ -5,14 +5,17 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
 
+import com.example.rednotedemo.data.dao.CommentDao;
 import com.example.rednotedemo.data.dao.PostDao;
+import com.example.rednotedemo.data.dao.PostImageDao;
 import com.example.rednotedemo.data.dao.UserDao;
+import com.example.rednotedemo.entity.Comment;
 import com.example.rednotedemo.entity.User;
 import com.example.rednotedemo.entity.Post;
 import com.example.rednotedemo.entity.PostImage;
 
 @Database(
-   entities = {User.class, Post.class, PostImage.class}, // 确保包含所有实体
+   entities = {User.class, Post.class, PostImage.class, Comment.class}, // 确保包含所有实体
    version = 2,
    exportSchema = false
 )
@@ -23,6 +26,8 @@ public abstract class AppDatabase extends RoomDatabase {
   public abstract UserDao userDao();
   
   public abstract PostDao postDao();
+  public abstract CommentDao commentDao();
+  public abstract PostImageDao postImageDao();
 
   /**
    * 获取数据库实例（单例模式）
