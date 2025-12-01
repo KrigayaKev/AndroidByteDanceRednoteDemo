@@ -29,4 +29,7 @@ public interface PostDao {
 
   @Query("SELECT COUNT(*) FROM post")
   int getPostCount();
+
+  @Query("SELECT * FROM post WHERE id = :postId")
+  LiveData<Post> getPostById(int postId);
 }

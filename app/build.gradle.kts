@@ -64,6 +64,8 @@ dependencies {
     // ViewModel + LiveData
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
+    //okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
