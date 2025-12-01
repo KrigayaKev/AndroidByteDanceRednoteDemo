@@ -10,11 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * 标题     :
- * 逻辑简介  :
- *
- * @author :yangpf
- * @date :2025/11/24  14:41
+ * 帖子VO的ViewHolder
  */
 public class PostViewHolder extends RecyclerView.ViewHolder {
   private ImageView imageView;

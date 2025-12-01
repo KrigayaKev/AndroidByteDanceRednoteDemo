@@ -18,6 +18,10 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -32,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
   private View[] tabViews; // 支持 TextView 和 ImageView
   int currentIndex = 0;
   private AppDatabase database;
+  private HomeFragment homeFragment;
+
+  // 使用 ActivityResultLauncher 替代 startActivityForResult
+  private ActivityResultLauncher<Intent> publishActivityLauncher;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +59,16 @@ public class MainActivity extends AppCompatActivity {
     // 异步插入初始数据
     insertInitialDataAsync();
 
+    // 初始化 ActivityResultLauncher
+    initPublishActivityLauncher();
+
     // 初始化 ViewPager2
     viewPager = findViewById(R.id.viewPager);
 
     // 创建 Fragment 列表：0=首页，1=占位页（用于其他所有 tab）
     fragments = new ArrayList<>();
-    fragments.add(new HomeFragment()); // 首页
+    homeFragment = new HomeFragment(); // 保存 HomeFragment 引用
+    fragments.add(homeFragment); // 首页
     fragments.add(PlaceholderFragment.newInstance("该功能暂未实现")); // 占位页
 
     MainPagerAdapter adapter = new MainPagerAdapter(this, fragments);
@@ -84,15 +96,12 @@ public class MainActivity extends AppCompatActivity {
           viewPager.setCurrentItem(0, false);
           updateTabSelection(position);
         } else if(position == 2){
-          //跳转到发布页
-          Intent intent = new Intent(MainActivity.this, PublishActivity.class);
-          startActivity(intent);
+          // 跳转到发布页，使用 ActivityResultLauncher
+          navigateToPublish();
         } else {
           // 其他：切换到第 1 页（占位页）
           updateTabSelection(position);
           viewPager.setCurrentItem(1, false);
-          // 可选：弹出 Toast（避免用户疑惑）
-          // Toast.makeText(MainActivity.this, "该功能暂未实现", Toast.LENGTH_SHORT).show();
         }
       });
     }
@@ -102,6 +111,46 @@ public class MainActivity extends AppCompatActivity {
     // 初始化时选中首页,添加选中效果
     updateTabSelection(0);
   }
+
+  /**
+   * 初始化发布页的 ActivityResultLauncher
+   */
+  private void initPublishActivityLauncher() {
+    publishActivityLauncher = registerForActivityResult(
+       new ActivityResultContracts.StartActivityForResult(),
+       new ActivityResultCallback<ActivityResult>() {
+         @Override
+         public void onActivityResult(ActivityResult result) {
+           if (result.getResultCode() == RESULT_OK) {
+             // 发布成功，切换到首页并刷新数据
+             switchToHomeAndRefresh();
+           }
+         }
+       });
+  }
+
+  /**
+   * 跳转到发布页的公共方法
+   */
+  public void navigateToPublish() {
+    Intent intent = new Intent(MainActivity.this, PublishActivity.class);
+    publishActivityLauncher.launch(intent);
+  }
+
+  /**
+   * 切换到首页并刷新数据
+   */
+  public void switchToHomeAndRefresh() {
+    // 切换到首页
+    viewPager.setCurrentItem(0, false);
+    updateTabSelection(0);
+
+    // 刷新 HomeFragment 数据
+    if (homeFragment != null) {
+      homeFragment.refreshData();
+    }
+  }
+
   private void updateTabSelection(int index) {
     tabViews[currentIndex].setSelected(false);
     tabViews[index].setSelected(true);
@@ -174,10 +223,5 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    // 清理数据库连接
-    if (database != null) {
-      database.close();
-    }
   }
-
 }

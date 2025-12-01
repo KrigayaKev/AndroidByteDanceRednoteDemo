@@ -20,13 +20,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerView"
+    <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:padding="8dp"
-      android:clipToPadding="false" />
+      android:layout_height="match_parent">
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:clipToPadding="false" />
+
+      <!-- 空状态视图 -->
+      <LinearLayout
+        android:id="@+id/emptyStateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <ImageView
+          android:layout_width="120dp"
+          android:layout_height="120dp"
+          android:src="@drawable/ic_empty_state"
+          android:contentDescription="空状态"
+          android:layout_marginBottom="24dp" />
+
+        <TextView
+          android:id="@+id/tvEmptyMessage"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="暂无内容"
+          android:textSize="16sp"
+          android:textColor="#888888"
+          android:gravity="center"
+          android:layout_marginBottom="32dp" />
+
+        <Button
+          android:id="@+id/btnRetryEmpty"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="重新加载"
+          android:backgroundTint="#FF0000"
+          android:textColor="@android:color/white"
+          android:paddingHorizontal="24dp"
+          android:visibility="gone" />
+
+        <Button
+          android:id="@+id/btnPublishFirst"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="发布第一个帖子"
+          android:backgroundTint="#FF0000"
+          android:textColor="@android:color/white"
+          android:paddingHorizontal="24dp"
+          android:visibility="gone" />
+
+      </LinearLayout>
+
+    </FrameLayout>
 
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-  
+
 </LinearLayout>

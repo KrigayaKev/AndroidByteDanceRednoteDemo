@@ -3,6 +3,10 @@ package com.example.rednotedemo.data.database;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
 import android.content.Context;
 
 import com.example.rednotedemo.data.dao.CommentDao;
@@ -15,16 +19,17 @@ import com.example.rednotedemo.entity.Post;
 import com.example.rednotedemo.entity.PostImage;
 
 @Database(
-   entities = {User.class, Post.class, PostImage.class, Comment.class}, // 确保包含所有实体
-   version = 2,
+   entities = {User.class, Post.class, PostImage.class, Comment.class},
+   version = 4,  // 版本号增加
    exportSchema = false
 )
+@TypeConverters({}) // 如果有类型转换器可以添加
 public abstract class AppDatabase extends RoomDatabase {
 
   private static volatile AppDatabase INSTANCE;
 
   public abstract UserDao userDao();
-  
+
   public abstract PostDao postDao();
   public abstract CommentDao commentDao();
   public abstract PostImageDao postImageDao();
@@ -37,10 +42,12 @@ public abstract class AppDatabase extends RoomDatabase {
       synchronized (AppDatabase.class) {
         if (INSTANCE == null) {
           INSTANCE = Room.databaseBuilder(
-             context.getApplicationContext(),
-             AppDatabase.class,
-             "rednote_database"
-          ).fallbackToDestructiveMigration().build();
+                context.getApplicationContext(),
+                AppDatabase.class,
+                "rednote_database"
+             )
+             .addMigrations(MIGRATION_3_4) // 注意：这会删除旧数据
+             .build();
         }
       }
     }
@@ -56,4 +63,13 @@ public abstract class AppDatabase extends RoomDatabase {
        AppDatabase.class
     ).build();
   }
+
+  // 在 AppDatabase.java 同级目录创建 Migration
+  static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+    @Override
+    public void migrate(SupportSQLiteDatabase database) {
+      // 添加 video_duration 字段
+      database.execSQL("ALTER TABLE post ADD COLUMN video_duration INTEGER NOT NULL DEFAULT 0");
+    }
+  };
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:padding="16dp">
+
+  <!-- 图片预览区域 -->
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rvImages"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp" />
+
+  <!-- 图文帖子的封面提示 -->
+  <TextView
+    android:id="@+id/tvImageCoverHint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="封面将使用第一张图片，如需自定义请选择封面"
+    android:textSize="12sp"
+    android:textColor="@color/light_gray"
+    android:padding="4dp"
+    android:layout_marginBottom="8dp" />
+
+  <!-- 图文帖子的封面选择 -->
+  <LinearLayout
+    android:id="@+id/llImageCoverContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:layout_marginBottom="16dp"
+    android:padding="8dp"
+    android:background="@drawable/border_gray_rounded">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="自定义封面"
+      android:textStyle="bold"
+      android:layout_marginBottom="8dp" />
+
+    <Button
+      android:id="@+id/btnImageCover"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="选择封面"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginBottom="8dp" />
+
+    <!-- 封面预览 -->
+    <ImageView
+      android:id="@+id/ivImageCoverPreview"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:layout_gravity="center_horizontal"
+      android:scaleType="centerCrop"
+      android:src="@drawable/ic_cover_placeholder"
+      android:contentDescription="封面预览"
+      android:background="@color/light_gray" />
+
+  </LinearLayout>
+
+</LinearLayout>

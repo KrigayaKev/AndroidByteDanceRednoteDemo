@@ -5,7 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.paging.PagingState;
 import androidx.paging.rxjava2.RxPagingSource;
 
-import com.example.rednotedemo.data.repository.PostRepository;
+import com.example.rednotedemo.data.repository.PostPageRepository;
 import com.example.rednotedemo.entity.vo.PostListItemVO;
 import com.example.rednotedemo.common.enums.FilterType;
 
@@ -17,10 +17,10 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class PostPagingSource extends RxPagingSource<Integer, PostListItemVO> {
-    private PostRepository repository;
+    private PostPageRepository repository;
     private FilterType filterType;
 
-    public PostPagingSource(FilterType filterType, PostRepository repository) {
+    public PostPagingSource(FilterType filterType, PostPageRepository repository) {
         this.filterType = filterType;
         this.repository = repository;
     }

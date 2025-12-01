@@ -2,14 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="80dp"
   android:layout_height="80dp"
-  android:background="#f0f0f0"
   android:layout_marginEnd="8dp"
   android:layout_marginBottom="8dp">
 
   <ImageView
-    android:layout_width="24dp"
-    android:layout_height="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="center"
     android:src="@drawable/ic_add_circle"
-    android:layout_gravity="center" />
+  android:background="#f0f0f0" />
 
 </FrameLayout>

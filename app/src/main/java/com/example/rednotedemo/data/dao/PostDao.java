@@ -32,4 +32,7 @@ public interface PostDao {
 
   @Query("SELECT * FROM post WHERE id = :postId")
   LiveData<Post> getPostById(int postId);
+
+  @Query("SELECT * FROM post ORDER BY create_time DESC LIMIT :limit OFFSET :offset")
+  List<Post> getPostsWithLimit(int limit, int offset);
 }

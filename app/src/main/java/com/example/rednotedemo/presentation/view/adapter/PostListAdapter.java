@@ -1,6 +1,7 @@
 package com.example.rednotedemo.presentation.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,29 +15,30 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.rednotedemo.R;
 import com.example.rednotedemo.entity.vo.PostListItemVO;
+import com.example.rednotedemo.presentation.view.PostDetailActivity;
 import com.example.rednotedemo.presentation.view.viewholder.PostViewHolder;
 
 public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewHolder> {
 
-    private Context context;
+  private Context context;
 
-    public PostListAdapter(MyComparator myComparator, Context mContext){
-        super(myComparator);
-        this.context = mContext;
+  public PostListAdapter(MyComparator myComparator, Context mContext){
+    super(myComparator);
+    this.context = mContext;
+  }
+
+  public static class MyComparator extends DiffUtil.ItemCallback<PostListItemVO> {
+
+    @Override
+    public boolean areItemsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
+      return oldItem.getPostId() == newItem.getPostId();
     }
 
-    public static class MyComparator extends DiffUtil.ItemCallback<PostListItemVO> {
-
-        @Override
-        public boolean areItemsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
-            return oldItem.getPostId() == newItem.getPostId();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
-            return oldItem.equals(newItem);
-        }
+    @Override
+    public boolean areContentsTheSame(@NonNull PostListItemVO oldItem, @NonNull PostListItemVO newItem) {
+      return oldItem.equals(newItem);
     }
+  }
 
   @NonNull
   @Override
@@ -60,23 +62,22 @@ public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewH
          .into(holder.getImageView());
     } else {
       // 如果 coverUrl 为 null 或空，使用本地资源
-      holder.getImageView().setImageResource(R.drawable.rednotelogo); // 👈 使用你的 logo
+      holder.getImageView().setImageResource(R.drawable.rednotelogo);
     }
-
-
 
     // 2. 标题
     holder.getTextContent().setText(item.getTitle());
 
-    // 3. 头像（Avatar）
+    // 3. 头像（Avatar）- 修复了加载逻辑
     String avatarUrl = item.getAuthorAvatarUrl();
     if (avatarUrl != null && !avatarUrl.isEmpty()) {
       Glide.with(holder.getAvatar().getContext())
-         .load("file:///android_asset/img/avatar7.png")
+         .load(avatarUrl) // 使用实际的网络头像URL
          .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+         .placeholder(R.drawable.qq_avatar) // 添加占位图
          .into(holder.getAvatar());
     } else {
-//      // 如果 avatarUrl 为 null 或空，使用本地 QQ 头像
+      // 如果 avatarUrl 为 null 或空，使用本地 QQ 头像
       holder.getAvatar().setImageResource(R.drawable.qq_avatar); // 👈 使用你的 QQ 头像
     }
 
@@ -85,5 +86,19 @@ public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewH
 
     // 5. 点赞数
     holder.getTextLikes().setText(String.valueOf(item.getLikesCount()));
+
+    final int currentPosition = position;
+    holder.itemView.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        PostListItemVO item = getItem(currentPosition);
+        if (item != null) {
+          // 跳转到详情页，并传递postId
+          Intent intent = new Intent(context, PostDetailActivity.class);
+          intent.putExtra("POST_ID", item.getPostId());
+          context.startActivity(intent);
+        }
+      }
+    });
   }
 }

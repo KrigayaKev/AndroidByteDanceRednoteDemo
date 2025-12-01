@@ -6,5 +6,14 @@ public class AppConfig {
     public static final String GITEE_USERNAME = "Haluzzz";
     public static final String GITEE_REPO = "my-images";
     public static final String GITEE_BRANCH = "master";
-    public static final String GITEE_IMAGE_FOLDER = "bytedance/";
+    
+    
+    // 图片和视频存储路径
+    public static final String GITEE_IMAGE_FOLDER = "bytedance/";      // 图片文件夹
+    public static final String GITEE_VIDEO_FOLDER = "videos/";      // 视频文件夹
+    public static final String GITEE_COVER_FOLDER = "covers/";      // 封面文件夹
+    
+    // 最大文件限制
+    public static final long MAX_IMAGE_SIZE = 10 * 1024 * 1024;     // 10MB
+    public static final long MAX_VIDEO_SIZE = 50 * 1024 * 1024;     // 50MB
 }

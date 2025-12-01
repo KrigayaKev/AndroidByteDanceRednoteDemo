@@ -1,6 +1,5 @@
 package com.example.rednotedemo.entity;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -46,10 +45,15 @@ public class Post {
   @ColumnInfo(name = "update_time")
   private long updateTime;
 
+  // 新增加字段：视频时长（毫秒）
+  @ColumnInfo(name = "video_duration")
+  private long videoDuration;
+
   // 构造方法
   public Post() {}
 
-  public Post(int id, int userId, String title, String content, String videoUrl, boolean isVideo, String coverUrl, long createTime, long updateTime) {
+  public Post(int id, int userId, String title, String content, String videoUrl,
+              boolean isVideo, String coverUrl, long createTime, long updateTime, long videoDuration) {
     this.id = id;
     this.userId = userId;
     this.title = title;
@@ -57,6 +61,9 @@ public class Post {
     this.videoUrl = videoUrl;
     this.isVideo = isVideo;
     this.coverUrl = coverUrl;
+    this.createTime = createTime;
+    this.updateTime = updateTime;
+    this.videoDuration = videoDuration;
   }
 
   // Getters and Setters
@@ -86,4 +93,7 @@ public class Post {
 
   public long getUpdateTime() { return updateTime; }
   public void setUpdateTime(long updateTime) { this.updateTime = updateTime; }
+
+  public long getVideoDuration() { return videoDuration; }
+  public void setVideoDuration(long videoDuration) { this.videoDuration = videoDuration; }
 }

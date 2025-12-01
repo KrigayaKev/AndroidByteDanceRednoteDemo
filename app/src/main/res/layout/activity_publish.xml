@@ -2,20 +2,60 @@
 <androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="16dp">
 
-  <!-- 图片预览区域（RecyclerView） -->
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rvImages"
+  <!-- 工具栏 -->
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="0dp"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/white"
+    app:navigationIcon="@drawable/ic_arrow_back"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:title="发布笔记" />
+
+  <!-- 帖子类型选择 -->
+  <RadioGroup
+    android:id="@+id/rgPostType"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintTop_toBottomOf="@id/toolbar"
+    app:layout_constraintStart_toStartOf="parent"
+    android:layout_marginBottom="16dp">
+
+    <RadioButton
+      android:id="@+id/rbImagePost"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="图文帖子"
+      android:checked="true" />
+
+    <RadioButton
+      android:id="@+id/rbVideoPost"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="视频帖子"
+      android:layout_marginLeft="24dp" />
+
+  </RadioGroup>
+
+  <!-- Fragment 容器 -->
+  <FrameLayout
+    android:id="@+id/fragmentContainer"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/rgPostType"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     android:layout_marginBottom="16dp" />
 
+  <!-- ========== 通用内容区域 ========== -->
   <!-- 标题输入框 -->
   <EditText
     android:id="@+id/etTitle"
@@ -23,7 +63,7 @@
     android:layout_height="wrap_content"
     android:hint="标题（必填）"
     android:inputType="text"
-    app:layout_constraintTop_toBottomOf="@id/rvImages"
+    app:layout_constraintTop_toBottomOf="@id/fragmentContainer"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     android:layout_marginBottom="16dp" />

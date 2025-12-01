@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:padding="16dp">
+
+  <!-- 视频选择区域 -->
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="16dp"
+    android:padding="12dp"
+    android:background="@drawable/border_gray_rounded">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="视频选择"
+      android:textStyle="bold"
+      android:layout_marginBottom="8dp" />
+
+    <Button
+      android:id="@+id/btnSelectVideo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="选择视频"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginBottom="12dp" />
+
+    <!-- 视频预览和信息 -->
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center_vertical">
+
+      <ImageView
+        android:id="@+id/ivVideoPreview"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_video_placeholder"
+        android:contentDescription="视频预览"
+        android:layout_marginEnd="12dp"
+        android:background="@color/light_gray" />
+
+      <TextView
+        android:id="@+id/tvVideoInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="点击选择视频文件"
+        android:textSize="12sp"
+        android:textColor="@color/light_gray" />
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <!-- 视频封面提示 -->
+  <TextView
+    android:id="@+id/tvVideoCoverHint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="视频封面设置"
+    android:textSize="14sp"
+    android:textStyle="bold"
+    android:padding="4dp"
+    android:layout_marginBottom="8dp" />
+
+  <!-- 视频封面选择区域 -->
+  <LinearLayout
+    android:id="@+id/llVideoCoverContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone"
+    android:layout_marginBottom="16dp"
+    android:padding="12dp"
+    android:background="@drawable/border_gray_rounded">
+
+    <!-- 封面选择按钮行 -->
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="12dp">
+
+      <Button
+        android:id="@+id/btnSelectCover"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="选择封面"
+        android:layout_marginEnd="8dp" />
+
+      <Button
+        android:id="@+id/btnExtractCover"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="提取视频帧" />
+
+    </LinearLayout>
+
+    <!-- 封面预览和信息 -->
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center_vertical">
+
+      <ImageView
+        android:id="@+id/ivCoverPreview"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_cover_placeholder"
+        android:contentDescription="封面预览"
+        android:layout_marginEnd="12dp"
+        android:background="@color/light_gray" />
+
+      <TextView
+        android:id="@+id/tvCoverInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="请选择封面或提取视频帧"
+        android:textSize="12sp"
+        android:textColor="@color/light_gray" />
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+</LinearLayout>

@@ -3,6 +3,7 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <application
+    android:name=".RedNoteApp"
     android:allowBackup="true"
     android:dataExtractionRules="@xml/data_extraction_rules"
     android:fullBackupContent="@xml/backup_rules"
@@ -16,6 +17,9 @@
       android:exported="false" />
     <activity
       android:name=".presentation.view.PublishActivity"
+      android:exported="false" />
+    <activity
+      android:name=".presentation.view.PostDetailActivity"
       android:exported="false" />
     <activity
       android:name=".presentation.view.SplashActivity"
