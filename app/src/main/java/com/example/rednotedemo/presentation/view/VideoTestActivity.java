@@ -14,6 +14,9 @@ import com.example.rednotedemo.R;
 import com.example.rednotedemo.common.util.VideoPlayerHelper;
 import com.google.android.exoplayer2.ui.PlayerView;
 
+/**
+ * 视频测试活动类，用于测试视频播放功能
+ */
 public class VideoTestActivity extends AppCompatActivity implements VideoPlayerHelper.OnVideoStateChangeListener {
 
   private VideoPlayerHelper videoPlayerHelper;

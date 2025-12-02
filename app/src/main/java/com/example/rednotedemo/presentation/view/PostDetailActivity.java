@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
@@ -91,6 +92,7 @@ public class PostDetailActivity extends AppCompatActivity
     initViewModel();
     setupClickListeners();
     setupImagePager();
+    setupBackPressHandler();
   }
 
   private void initViews() {
@@ -512,19 +514,36 @@ public class PostDetailActivity extends AppCompatActivity
     }
   }
 
-  @Override
-  public void onBackPressed() {
+  /**
+   * 设置返回键处理
+   */
+  private void setupBackPressHandler() {
+    getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+      @Override
+      public void handleOnBackPressed() {
+        handleBackPressed();
+      }
+    });
+  }
+
+  /**
+   * 处理返回键逻辑
+   */
+  private void handleBackPressed() {
     if (videoPlayerHelper != null && videoPlayerHelper.isPlaying()) {
-      // 如果正在播放，暂停播放
+      // 如果正在播放视频，暂停播放
       videoPlayerHelper.pause();
 
       // 显示播放按钮和封面
       ivVideoCover.setVisibility(View.VISIBLE);
       ivPlayButton.setVisibility(View.VISIBLE);
       playerView.setVisibility(View.GONE);
+
+      // 显示提示
+      Toast.makeText(PostDetailActivity.this, "视频已暂停", Toast.LENGTH_SHORT).show();
     } else {
-      // 使用新的后退处理方式
-      super.onBackPressed();
+      // 正常退出活动
+      finish();
     }
   }
 }
