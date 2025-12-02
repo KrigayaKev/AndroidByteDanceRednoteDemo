@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagingDataAdapter;
@@ -44,7 +43,7 @@ public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewH
   @Override
   public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext())
-       .inflate(R.layout.post_item, parent, false);
+       .inflate(R.layout.item_post, parent, false);
     return new PostViewHolder(view);
   }
 

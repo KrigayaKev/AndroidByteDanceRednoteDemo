@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.rednotedemo.R;
-import com.example.rednotedemo.common.util.GiteeImageUploader;
+import com.example.rednotedemo.common.util.GiteeUploader;
 import com.example.rednotedemo.common.util.VideoUtils;
 
 public class VideoPostFragment extends BasePublishFragment {
@@ -145,8 +145,8 @@ public class VideoPostFragment extends BasePublishFragment {
 
             // 生成文件名
             long timestamp = System.currentTimeMillis();
-            videoFileName = GiteeImageUploader.generateVideoFileName(timestamp);
-            coverFileName = GiteeImageUploader.generateCoverFileName(timestamp);
+            videoFileName = GiteeUploader.generateVideoFileName(timestamp);
+            coverFileName = GiteeUploader.generateCoverFileName(timestamp);
 
             tvVideoInfo.setText("视频已选择");
             tvCoverInfo.setText("已提取视频第一帧作为封面");

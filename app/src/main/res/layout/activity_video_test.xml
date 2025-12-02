@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:padding="16dp"
+  android:background="@color/white"
+  tools:context=".presentation.view.VideoTestActivity">
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="视频播放测试"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    android:textColor="@color/black"
+    android:layout_marginBottom="16dp" />
+
+  <!-- 视频URL输入 -->
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="8dp">
+
+    <EditText
+      android:id="@+id/et_video_url"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:hint="输入视频URL..."
+      android:padding="12dp"
+      android:background="@drawable/edit_text_bg"
+      android:textSize="14sp" />
+
+    <Button
+      android:id="@+id/btn_test"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="测试"
+      android:layout_marginStart="8dp"
+      android:paddingHorizontal="16dp" />
+
+  </LinearLayout>
+
+  <!-- 控制按钮 -->
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp">
+
+    <Button
+      android:id="@+id/btn_play"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="播放"
+      android:layout_marginEnd="4dp"
+      android:backgroundTint="@color/blue_500"
+      android:textColor="@color/white" />
+
+    <Button
+      android:id="@+id/btn_pause"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="暂停"
+      android:layout_marginEnd="4dp"
+      android:backgroundTint="@color/gray_500"
+      android:textColor="@color/white" />
+
+    <Button
+      android:id="@+id/btn_stop"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="停止"
+      android:backgroundTint="@color/red"
+      android:textColor="@color/white" />
+
+  </LinearLayout>
+
+  <!-- 状态显示 -->
+  <TextView
+    android:id="@+id/tv_status"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="状态: 空闲"
+    android:textSize="16sp"
+    android:textColor="@color/black"
+    android:layout_marginBottom="8dp" />
+
+  <!-- 测试结果 -->
+  <TextView
+    android:id="@+id/tv_test_result"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="测试结果将显示在这里"
+    android:textSize="14sp"
+    android:textColor="@color/gray_800"
+    android:background="@drawable/edit_text_bg"
+    android:padding="12dp"
+    android:layout_marginBottom="16dp" />
+
+  <!-- 播放器 -->
+  <com.google.android.exoplayer2.ui.PlayerView
+    android:id="@+id/player_view_test"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_marginBottom="16dp" />
+
+  <!-- 测试URL列表 -->
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="预置测试URL:"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    android:textColor="@color/black"
+    android:layout_marginBottom="8dp" />
+
+  <LinearLayout
+    android:id="@+id/ll_test_urls"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="16dp" />
+
+  <!-- 使用说明 -->
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="使用说明:\n1. 输入视频URL或选择预置URL\n2. 点击'测试'检查URL可访问性\n3. 点击'播放'开始播放视频\n4. 观察状态和错误信息"
+    android:textSize="14sp"
+    android:textColor="@color/gray_600"
+    android:lineSpacingExtra="4dp" />
+
+</LinearLayout>

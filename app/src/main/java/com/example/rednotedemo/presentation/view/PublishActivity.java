@@ -1,13 +1,11 @@
 package com.example.rednotedemo.presentation.view;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -15,11 +13,11 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.rednotedemo.R;
+import com.example.rednotedemo.common.util.GiteeUploader;
 import com.example.rednotedemo.data.database.AppDatabase;
 import com.example.rednotedemo.data.dao.PostDao;
 import com.example.rednotedemo.entity.Post;
 import com.example.rednotedemo.entity.PostImage;
-import com.example.rednotedemo.common.util.GiteeImageUploader;
 import com.example.rednotedemo.presentation.view.fragment.BasePublishFragment;
 import com.example.rednotedemo.presentation.view.fragment.ImagePostFragment;
 import com.example.rednotedemo.presentation.view.fragment.VideoPostFragment;
@@ -261,13 +259,13 @@ public class PublishActivity extends AppCompatActivity implements BasePublishFra
   private void uploadImagesFirst(String title, String content, List<Uri> imageUris,
                                  Uri coverUri, boolean isCustomCover) {
     // 检查配置是否有效
-    if (!GiteeImageUploader.isConfigValid()) {
+    if (!GiteeUploader.isConfigValid()) {
       Toast.makeText(this, "图片上传配置不完整，请检查配置", Toast.LENGTH_SHORT).show();
       resetPublishButton();
       return;
     }
 
-    GiteeImageUploader uploader = new GiteeImageUploader(this);
+    GiteeUploader uploader = new GiteeUploader(this);
     List<String> uploadedImageUrls = new ArrayList<>();
     AtomicInteger uploadCount = new AtomicInteger(0);
     AtomicBoolean hasError = new AtomicBoolean(false);
@@ -278,9 +276,9 @@ public class PublishActivity extends AppCompatActivity implements BasePublishFra
     // 先上传封面（如果有自定义封面）
     if (isCustomCover && coverUri != null) {
       long timestamp = System.currentTimeMillis();
-      coverFileName = GiteeImageUploader.generateCoverFileName(timestamp);
+      coverFileName = GiteeUploader.generateCoverFileName(timestamp);
 
-      uploader.uploadCover(coverUri, coverFileName, new GiteeImageUploader.UploadCallback() {
+      uploader.uploadCover(coverUri, coverFileName, new GiteeUploader.UploadCallback() {
         @Override
         public void onSuccess(String url) {
           customCoverUrl[0] = url;
@@ -309,16 +307,16 @@ public class PublishActivity extends AppCompatActivity implements BasePublishFra
                                  List<String> uploadedImageUrls, AtomicInteger uploadCount,
                                  AtomicBoolean hasError, final String[] customCoverUrl) {
 
-    GiteeImageUploader uploader = new GiteeImageUploader(this);
+    GiteeUploader uploader = new GiteeUploader(this);
     long timestamp = System.currentTimeMillis();
 
     for (int i = 0; i < imageUris.size(); i++) {
       Uri imageUri = imageUris.get(i);
-      String fileName = GiteeImageUploader.generateImageFileName(timestamp, i);
+      String fileName = GiteeUploader.generateImageFileName(timestamp, i);
 
       final int currentIndex = i;
 
-      uploader.uploadImage(imageUri, fileName, new GiteeImageUploader.UploadCallback() {
+      uploader.uploadImage(imageUri, fileName, new GiteeUploader.UploadCallback() {
         @Override
         public void onSuccess(String imageUrl) {
           Log.d(TAG, "图片 " + (currentIndex + 1) + " 上传成功: " + imageUrl);
@@ -372,17 +370,17 @@ public class PublishActivity extends AppCompatActivity implements BasePublishFra
   }
 
   private void uploadCustomCover(String title, String content, Uri coverUri, long duration) {
-    if (!GiteeImageUploader.isConfigValid()) {
+    if (!GiteeUploader.isConfigValid()) {
       Toast.makeText(this, "上传配置不完整", Toast.LENGTH_SHORT).show();
       resetPublishButton();
       return;
     }
 
-    GiteeImageUploader uploader = new GiteeImageUploader(this);
+    GiteeUploader uploader = new GiteeUploader(this);
     long timestamp = System.currentTimeMillis();
-    coverFileName = GiteeImageUploader.generateCoverFileName(timestamp);
+    coverFileName = GiteeUploader.generateCoverFileName(timestamp);
 
-    uploader.uploadCover(coverUri, coverFileName, new GiteeImageUploader.UploadCallback() {
+    uploader.uploadCover(coverUri, coverFileName, new GiteeUploader.UploadCallback() {
       @Override
       public void onSuccess(String coverUrl) {
         Log.d(TAG, "自定义封面上传成功: " + coverUrl);
@@ -403,17 +401,17 @@ public class PublishActivity extends AppCompatActivity implements BasePublishFra
   }
 
   private void uploadVideoCover(String title, String content, Bitmap coverBitmap, long duration) {
-    if (!GiteeImageUploader.isConfigValid()) {
+    if (!GiteeUploader.isConfigValid()) {
       Toast.makeText(this, "上传配置不完整", Toast.LENGTH_SHORT).show();
       resetPublishButton();
       return;
     }
 
-    GiteeImageUploader uploader = new GiteeImageUploader(this);
+    GiteeUploader uploader = new GiteeUploader(this);
     long timestamp = System.currentTimeMillis();
-    coverFileName = GiteeImageUploader.generateCoverFileName(timestamp);
+    coverFileName = GiteeUploader.generateCoverFileName(timestamp);
 
-    uploader.uploadCover(coverBitmap, coverFileName, new GiteeImageUploader.UploadCallback() {
+    uploader.uploadCover(coverBitmap, coverFileName, new GiteeUploader.UploadCallback() {
       @Override
       public void onSuccess(String coverUrl) {
         Log.d(TAG, "视频封面上传成功: " + coverUrl);
@@ -434,11 +432,11 @@ public class PublishActivity extends AppCompatActivity implements BasePublishFra
   }
 
   private void uploadVideoFile(String title, String content, String coverUrl, Uri videoUri, long duration) {
-    GiteeImageUploader uploader = new GiteeImageUploader(this);
+    GiteeUploader uploader = new GiteeUploader(this);
     long timestamp = System.currentTimeMillis();
-    videoFileName = GiteeImageUploader.generateVideoFileName(timestamp);
+    videoFileName = GiteeUploader.generateVideoFileName(timestamp);
 
-    uploader.uploadVideo(videoUri, videoFileName, new GiteeImageUploader.UploadCallback() {
+    uploader.uploadVideo(videoUri, videoFileName, new GiteeUploader.UploadCallback() {
       @Override
       public void onSuccess(String videoUrl) {
         Log.d(TAG, "视频上传成功: " + videoUrl);

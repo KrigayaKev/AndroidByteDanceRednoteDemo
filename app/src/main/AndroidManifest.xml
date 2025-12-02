@@ -13,6 +13,9 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.RednoteDemo">
     <activity
+      android:name=".presentation.view.VideoTestActivity"
+      android:exported="false" />
+    <activity
       android:name=".presentation.view.MainActivity"
       android:exported="false" />
     <activity
@@ -32,6 +35,7 @@
       </intent-filter>
     </activity>
   </application>
-  
+
   <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>
