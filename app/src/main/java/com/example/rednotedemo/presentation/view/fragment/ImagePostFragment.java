@@ -1,4 +1,3 @@
-// ImagePostFragment.java
 package com.example.rednotedemo.presentation.view.fragment;
 
 import android.content.ClipData;
