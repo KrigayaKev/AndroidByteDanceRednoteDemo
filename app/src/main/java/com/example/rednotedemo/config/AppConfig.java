@@ -13,7 +13,7 @@ public class AppConfig {
   public static final String GITEE_COVER_FOLDER = "covers/";      // 封面文件夹
 
   // 最大文件限制
-  public static final long MAX_IMAGE_SIZE = 10 * 1024 * 1024;     // 10MB
+  public static final long MAX_IMAGE_SIZE = 50 * 1024 * 1024;     // 50MB
   public static final long MAX_VIDEO_SIZE = 50 * 1024 * 1024;     // 50MB
 
   // 本地assets路径

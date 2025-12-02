@@ -20,7 +20,7 @@ import com.example.rednotedemo.entity.PostImage;
 
 @Database(
    entities = {User.class, Post.class, PostImage.class, Comment.class},
-   version = 4,  // 版本号增加
+   version = 3,
    exportSchema = false
 )
 @TypeConverters({}) // 如果有类型转换器可以添加
@@ -46,7 +46,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 AppDatabase.class,
                 "rednote_database"
              )
-             .addMigrations(MIGRATION_3_4) // 注意：这会删除旧数据
+             .fallbackToDestructiveMigration()
              .build();
         }
       }
@@ -63,13 +63,4 @@ public abstract class AppDatabase extends RoomDatabase {
        AppDatabase.class
     ).build();
   }
-
-  // 在 AppDatabase.java 同级目录创建 Migration
-  static final Migration MIGRATION_3_4 = new Migration(3, 4) {
-    @Override
-    public void migrate(SupportSQLiteDatabase database) {
-      // 添加 video_duration 字段
-      database.execSQL("ALTER TABLE post ADD COLUMN video_duration INTEGER NOT NULL DEFAULT 0");
-    }
-  };
 }
