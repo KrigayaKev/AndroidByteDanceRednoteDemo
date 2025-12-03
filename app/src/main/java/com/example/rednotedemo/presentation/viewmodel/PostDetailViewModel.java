@@ -12,12 +12,12 @@ import com.example.rednotedemo.entity.Comment;
 import com.example.rednotedemo.entity.Post;
 import com.example.rednotedemo.entity.PostImage;
 import com.example.rednotedemo.entity.User;
-import com.example.rednotedemo.data.repository.PostRepositoryRoom;
+import com.example.rednotedemo.data.repository.PostRepository;
 
 import java.util.List;
 
 public class PostDetailViewModel extends AndroidViewModel {
-    private final PostRepositoryRoom repository;
+    private final PostRepository repository;
     private final MutableLiveData<Integer> postId = new MutableLiveData<>();
 
     private final MediatorLiveData<Post> post = new MediatorLiveData<>();
@@ -26,7 +26,7 @@ public class PostDetailViewModel extends AndroidViewModel {
 
     public PostDetailViewModel(@NonNull Application application) {
         super(application);
-        repository = new PostRepositoryRoom(application);
+        repository = new PostRepository(application);
 
         // 设置帖子数据源
         post.addSource(postId, id -> {
