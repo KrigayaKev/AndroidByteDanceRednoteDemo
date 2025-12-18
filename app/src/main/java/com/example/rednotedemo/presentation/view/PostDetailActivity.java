@@ -1,5 +1,6 @@
 package com.example.rednotedemo.presentation.view;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -463,7 +464,7 @@ public class PostDetailActivity extends AppCompatActivity
 
   private void showMoreOptions() {
     String[] options = {"分享", "收藏", "举报"};
-    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle("选择操作")
        .setItems(options, (dialog, which) -> {
          switch (which) {

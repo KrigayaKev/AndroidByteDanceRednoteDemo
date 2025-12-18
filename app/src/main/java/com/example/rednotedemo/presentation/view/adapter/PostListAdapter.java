@@ -77,7 +77,7 @@ public class PostListAdapter extends PagingDataAdapter<PostListItemVO, PostViewH
          .into(holder.getAvatar());
     } else {
       // 如果 avatarUrl 为 null 或空，使用本地 QQ 头像
-      holder.getAvatar().setImageResource(R.drawable.qq_avatar); // 👈 使用你的 QQ 头像
+      holder.getAvatar().setImageResource(R.drawable.qq_avatar);
     }
 
     // 4. 昵称

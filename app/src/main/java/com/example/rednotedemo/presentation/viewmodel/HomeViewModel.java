@@ -25,7 +25,7 @@ import kotlinx.coroutines.CoroutineScope;
 
 public class HomeViewModel extends AndroidViewModel {
   private final PostPageRepository postRepository;
-  private MutableLiveData<Resource<List<PostListItemVO>>> postsLiveData = new MutableLiveData<>();
+  private MutableLiveData<Resource<List<PostListItemVO>>> postsLiveData;
   private MutableLiveData<Boolean> isEmptyState = new MutableLiveData<>(false);
   private MutableLiveData<String> emptyStateMessage = new MutableLiveData<>("");
   private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
@@ -80,7 +80,6 @@ public class HomeViewModel extends AndroidViewModel {
     if (isEmpty) {
       emptyStateMessage.postValue("还没有帖子，快去发布第一个吧！");
     } else {
-      int totalCount = postRepository.getTotalPostCount();
       emptyStateMessage.postValue("暂无帖子内容");
     }
   }
